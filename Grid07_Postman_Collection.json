@@ -1,0 +1,107 @@
+{
+  "info": {
+    "name": "Grid07 API",
+    "_postman_id": "grid07-collection-v1",
+    "description": "Spring Boot Grid07 Intern Assignment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Users & Bots",
+      "item": [
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [{"key":"Content-Type","value":"application/json"}],
+            "url": "{{baseUrl}}/api/users",
+            "body": {"mode":"raw","raw":"{"username":"alice","isPremium":true}"}
+          }
+        },
+        {
+          "name": "Create Bot",
+          "request": {
+            "method": "POST",
+            "header": [{"key":"Content-Type","value":"application/json"}],
+            "url": "{{baseUrl}}/api/bots",
+            "body": {"mode":"raw","raw":"{"name":"BotAlpha","personaDescription":"Friendly engagement bot"}"}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Posts",
+      "item": [
+        {
+          "name": "Create Post (Human)",
+          "request": {
+            "method": "POST",
+            "header": [{"key":"Content-Type","value":"application/json"}],
+            "url": "{{baseUrl}}/api/posts",
+            "body": {"mode":"raw","raw":"{"authorId":1,"authorType":"USER","content":"Hello world! My first post."}"}
+          }
+        },
+        {
+          "name": "Create Post (Bot)",
+          "request": {
+            "method": "POST",
+            "header": [{"key":"Content-Type","value":"application/json"}],
+            "url": "{{baseUrl}}/api/posts",
+            "body": {"mode":"raw","raw":"{"authorId":1,"authorType":"BOT","content":"Bot-generated content."}"}
+          }
+        },
+        {
+          "name": "Like a Post",
+          "request": {
+            "method": "POST",
+            "header": [{"key":"Content-Type","value":"application/json"}],
+            "url": "{{baseUrl}}/api/posts/1/like",
+            "body": {"mode":"raw","raw":"{"userId":2}"}
+          }
+        },
+        {
+          "name": "Get Virality Score",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/posts/1/virality"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Comments",
+      "item": [
+        {
+          "name": "Add Human Comment (top-level)",
+          "request": {
+            "method": "POST",
+            "header": [{"key":"Content-Type","value":"application/json"}],
+            "url": "{{baseUrl}}/api/posts/1/comments",
+            "body": {"mode":"raw","raw":"{"authorId":2,"authorType":"USER","content":"Great post!"}"}
+          }
+        },
+        {
+          "name": "Add Bot Comment (guarded)",
+          "request": {
+            "method": "POST",
+            "header": [{"key":"Content-Type","value":"application/json"}],
+            "url": "{{baseUrl}}/api/posts/1/comments",
+            "body": {"mode":"raw","raw":"{"authorId":1,"authorType":"BOT","content":"Thanks for sharing!"}"}
+          }
+        },
+        {
+          "name": "Add Nested Comment (depth test)",
+          "request": {
+            "method": "POST",
+            "header": [{"key":"Content-Type","value":"application/json"}],
+            "url": "{{baseUrl}}/api/posts/1/comments",
+            "body": {"mode":"raw","raw":"{"authorId":1,"authorType":"BOT","content":"Nested reply","parentCommentId":1}"}
+          }
+        }
+      ]
+    }
+  ]
+}
